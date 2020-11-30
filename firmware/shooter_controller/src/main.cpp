@@ -1,9 +1,4 @@
 #include <Arduino.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
-#include "freertos/event_groups.h"
-#include "esp32-hal.h"
-#include <inttypes.h>
 #include "dshot.h"
 
 #define MOTOR_0 0
@@ -33,11 +28,12 @@ void createMotor(int pin, dshot_t *motor)
 	motor->throttle = DSHOT_IDLE;
 }
 
-void setMotorThrottle(int id, uint16_t throttle) {
+void setMotorThrottle(int id, uint16_t throttle)
+{
 	if (throttle > 2000 || throttle < 0)
-    {
-        return;
-    }
+	{
+		return;
+	}
 
 	motors[id].throttle = throttle + DSHOT_MIN;
 }
@@ -71,7 +67,8 @@ void loop()
 		Serial.printf("val: %d\n", throttle);
 		setMotorThrottle(MOTOR_0, throttle);
 		setMotorThrottle(MOTOR_1, throttle);
-	} else if (throttle == -1)
+	}
+	else if (throttle == -1)
 	{
 		Serial.println("stop");
 		setMotorThrottle(MOTOR_0, 0);
