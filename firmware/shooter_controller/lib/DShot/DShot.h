@@ -12,6 +12,6 @@ typedef struct
 	volatile uint16_t throttle;
 } dshot_t;
 
-void createMotor(int pin, dshot_t *motor);
-void setMotorThrottle(uint16_t throttle, dshot_t *motor);
+void dshotCreateMotor(int pin, dshot_t *motor);
+void dshotSetThrottle(uint16_t throttle, dshot_t *motor);
 void dshotOutput(uint16_t value, rmt_data_t *dshot_packet, rmt_obj_t *rmt_send);

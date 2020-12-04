@@ -1,7 +1,7 @@
 #include <Arduino.h>
-#include "dshot.h"
+#include "DShot.h"
 
-void createMotor(int pin, dshot_t *motor)
+void dshotCreateMotor(int pin, dshot_t *motor)
 {
 	rmt_obj_t *rmt_send;
 	if ((rmt_send = rmtInit(pin, true, RMT_MEM_64)) == NULL)
@@ -16,7 +16,7 @@ void createMotor(int pin, dshot_t *motor)
 	motor->throttle = DSHOT_IDLE;
 }
 
-void setMotorThrottle(uint16_t throttle, dshot_t *motor)
+void dshotSetThrottle(uint16_t throttle, dshot_t *motor)
 {
 	if (throttle > 2000 || throttle < 0)
 	{
