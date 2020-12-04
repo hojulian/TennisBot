@@ -1,6 +1,6 @@
 /**
- * AS5048H driver
- * Code modified from https://github.com/oschwartz10612/Smart-Table.
+ * AS5048A driver
+ * Code modified from https://github.com/oschwartz10612/Smart-Table
  */
 #include "Arduino.h"
 
