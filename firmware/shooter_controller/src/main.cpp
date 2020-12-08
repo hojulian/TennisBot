@@ -1,11 +1,21 @@
 #include <Arduino.h>
 #include "DShot.h"
+#include "AS5048A.h"
 
 #define MOTOR_0_PIN 0
 #define MOTOR_1_PIN 2
 hw_timer_t *motor_timer = NULL;
 dshot_t motor_0;
 dshot_t motor_1;
+
+#define ENCODER_MISO 12
+#define ENCODER_MOSI 13
+#define ENCODER_CLK 14
+#define ENCODER_0_PIN 25
+#define ENCODER_1_PIN 26
+SPIClass encoder_spi(HSPI);
+AS5048A encoder_0(&encoder_spi, ENCODER_0_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
+AS5048A encoder_1(&encoder_spi, ENCODER_1_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
 
 void IRAM_ATTR onTimer()
 {
@@ -17,6 +27,10 @@ void setup()
 {
 	Serial.begin(115200);
 	Serial.println("init starting");
+
+	// Encoders init
+	encoder_0.begin();
+	encoder_1.begin();
 
 	// Motors init
 	dshotCreateMotor(MOTOR_0_PIN, &motor_0);
@@ -36,18 +50,22 @@ void setup()
 
 void loop()
 {
-	int throttle = Serial.parseInt();
+	// int throttle = Serial.parseInt();
 
-	if (throttle == 9999)
-	{
-		Serial.println("stop");
-		dshotSetThrottle(0, &motor_0);
-		dshotSetThrottle(0, &motor_1);
-	}
-	else if (throttle > 0)
-	{
-		Serial.printf("val: %d\n", throttle);
-		dshotSetThrottle(throttle, &motor_0);
-		dshotSetThrottle(throttle, &motor_1);
-	}
+	// if (throttle == 9999)
+	// {
+	// 	Serial.println("stop");
+	// 	dshotSetThrottle(0, &motor_0);
+	// 	dshotSetThrottle(0, &motor_1);
+	// }
+	// else if (throttle > 0)
+	// {
+	// 	Serial.printf("val: %d\n", throttle);
+	// 	dshotSetThrottle(throttle, &motor_0);
+	// 	dshotSetThrottle(throttle, &motor_1);
+	// }
+
+	Serial.printf("#0 pos: %f\n", encoder_0.getRotationInDegrees());
+	Serial.printf("#1 pos: %f\n", encoder_1.getRotationInDegrees());
+	delay(1000);
 }

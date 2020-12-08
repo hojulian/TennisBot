@@ -10,16 +10,17 @@
 class AS5048A
 {
 private:
-	uint8_t _VSPI_SS;
-	uint8_t _VSPI_MISO;
-	uint8_t _VSPI_MOSI;
-	uint8_t _VSPI_SCLK;
+	uint8_t _SPI_SS;
+	uint8_t _SPI_MISO;
+	uint8_t _SPI_MOSI;
+	uint8_t _SPI_SCLK;
 
 	bool errorFlag;
 	bool ocfFlag; // Avoid printing OCF flag everytime
 	uint16_t position;
 	uint8_t esp32_delay;
 
+	SPIClass *spi;
 	SPISettings settings;
 
 	uint8_t spiCalcEvenParity(uint16_t);
@@ -66,7 +67,7 @@ public:
 	/**
 	 *	Constructor
 	 */
-	AS5048A(uint8_t VSPI_SS, uint8_t VSPI_MISO, uint8_t VSPI_MOSI, uint8_t VSPI_SCLK);
+	AS5048A(SPIClass *spi, uint8_t SPI_SS, uint8_t SPI_MISO, uint8_t SPI_MOSI, uint8_t SPI_SCLK);
 
 	/**
 	 * Initialiser

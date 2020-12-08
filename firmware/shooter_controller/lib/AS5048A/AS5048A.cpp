@@ -26,13 +26,11 @@ static const uint16_t AS5048A_DIAG_OCF = 0x0400;
 
 static const double AS5048A_MAX_VALUE = 8191.0;
 
-SPIClass *vspi = NULL;
-
 /**
  * Constructor
  */
-AS5048A::AS5048A(byte VSPI_SS, byte VSPI_MISO, byte VSPI_MOSI, byte VSPI_SCLK)
-	: _VSPI_SS(VSPI_SS), _VSPI_MISO(VSPI_MISO), _VSPI_MOSI(VSPI_MOSI), _VSPI_SCLK(VSPI_SCLK), errorFlag(false), ocfFlag(false), position(0)
+AS5048A::AS5048A(SPIClass *spi, byte SPI_SS, byte SPI_MISO, byte SPI_MOSI, byte SPI_SCLK)
+	: spi(spi), _SPI_SS(SPI_SS), _SPI_MISO(SPI_MISO), _SPI_MOSI(SPI_MOSI), _SPI_SCLK(SPI_SCLK), errorFlag(false), ocfFlag(false), position(0)
 {
 }
 
@@ -47,13 +45,11 @@ void AS5048A::begin()
 	// 1MHz clock (AMS should be able to accept up to 10MHz)
 	this->settings = SPISettings(3000000, MSBFIRST, SPI_MODE1);
 
-	vspi = new SPIClass(VSPI);
-
 	//setup pins
-	pinMode(this->_VSPI_SS, OUTPUT);
+	pinMode(this->_SPI_SS, OUTPUT);
 
 	//SPI has an internal SPI-device counter, it is possible to call "begin()" from different devices
-	vspi->begin(this->_VSPI_SCLK, this->_VSPI_MISO, this->_VSPI_MOSI, this->_VSPI_SS); //SCLK, MISO, MOSI, SS
+	spi->begin(this->_SPI_SCLK, this->_SPI_MISO, this->_SPI_MOSI, this->_SPI_SS); //SCLK, MISO, MOSI, SS
 }
 
 /**
@@ -62,7 +58,7 @@ void AS5048A::begin()
  */
 void AS5048A::close()
 {
-	vspi->end();
+	spi->end();
 }
 
 /**
@@ -262,22 +258,22 @@ uint16_t AS5048A::read(uint16_t registerAddress)
 #endif
 
 	//SPI - begin transaction
-	vspi->beginTransaction(this->settings);
+	spi->beginTransaction(this->settings);
 
 	//Send the command
-	digitalWrite(this->_VSPI_SS, LOW);
-	vspi->transfer16(command);
-	digitalWrite(this->_VSPI_SS, HIGH);
+	digitalWrite(this->_SPI_SS, LOW);
+	spi->transfer16(command);
+	digitalWrite(this->_SPI_SS, HIGH);
 
 	vTaskDelay(this->esp32_delay);
 
 	//Now read the response
-	digitalWrite(this->_VSPI_SS, LOW);
-	uint16_t response = vspi->transfer16(0x00);
-	digitalWrite(this->_VSPI_SS, HIGH);
+	digitalWrite(this->_SPI_SS, LOW);
+	uint16_t response = spi->transfer16(0x00);
+	digitalWrite(this->_SPI_SS, HIGH);
 
 	//SPI - end transaction
-	vspi->endTransaction();
+	spi->endTransaction();
 
 #ifdef DEBUG
 	Serial.print("Read returned: ");
@@ -325,12 +321,12 @@ uint16_t AS5048A::write(uint16_t registerAddress, uint16_t data)
 #endif
 
 	//SPI - begin transaction
-	vspi->beginTransaction(this->settings);
+	spi->beginTransaction(this->settings);
 
 	//Start the write command with the target address
-	digitalWrite(this->_VSPI_SS, LOW);
-	vspi->transfer16(command);
-	digitalWrite(this->_VSPI_SS, HIGH);
+	digitalWrite(this->_SPI_SS, LOW);
+	spi->transfer16(command);
+	digitalWrite(this->_SPI_SS, HIGH);
 
 	uint16_t dataToSend = 0x0000;
 	dataToSend |= data;
@@ -344,18 +340,18 @@ uint16_t AS5048A::write(uint16_t registerAddress, uint16_t data)
 #endif
 
 	//Now send the data packet
-	digitalWrite(this->_VSPI_SS, LOW);
-	vspi->transfer16(dataToSend);
-	digitalWrite(this->_VSPI_SS, HIGH);
+	digitalWrite(this->_SPI_SS, LOW);
+	spi->transfer16(dataToSend);
+	digitalWrite(this->_SPI_SS, HIGH);
 
 	vTaskDelay(this->esp32_delay);
 
-	digitalWrite(this->_VSPI_SS, LOW);
-	uint16_t response = vspi->transfer16(0x0000);
-	digitalWrite(this->_VSPI_SS, HIGH);
+	digitalWrite(this->_SPI_SS, LOW);
+	uint16_t response = spi->transfer16(0x0000);
+	digitalWrite(this->_SPI_SS, HIGH);
 
 	//SPI - end transaction
-	vspi->endTransaction();
+	spi->endTransaction();
 
 	//Return the data, stripping the parity and error bits
 	return response & ~0xC000;
