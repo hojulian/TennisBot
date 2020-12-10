@@ -42,6 +42,12 @@ Here are some images of TennisBot v1 in 3D and AR.
 
 ![3D shooting position](images/3D_shooting_position.png)
 
+*Shooter at 30 degrees shooting position*
+
 ![3D cross section](images/3D_cross_section_view.png)
 
+*Cross section of the shooter pipe*
+
 ![AR side view](images/AR_side_view.jpg)
+
+*Apple AR view*
