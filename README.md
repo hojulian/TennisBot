@@ -19,7 +19,7 @@ TennisBot is a tennis playing robot capable of playing a full tennis match.
 * `/docs` - final report, github pages
 * `/docs/images` - images of the project
 * `/firmware` - all firmware/configs for MCU, motor ESCs, and actuator
-* `/hardware` - BOM
+* `/hardware` - BOM, 3D printed parts files
 * `/lib/quickshot` - QuickShot library
 * `/models/designs` - 3D design source files
 * `/models/gazebo` - 3D models in gazebo
