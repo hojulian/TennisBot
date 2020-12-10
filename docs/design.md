@@ -17,7 +17,23 @@ With these limitations, we had to constraint and revise our design a lot.
 
 (4) created constraint on the physical weight and size of the robot. We designed the robot to have a small footprint (less than the size of a pizza box), and light enough to be carried with a suitcase (~ 10Kg total).
 
-## 3D Design
+## Changes along the way
+
+During the physical testing of our design, we realized a couple things that needed to be changed.
+
+* Actuator not powerful enough to hold shooter's angle
+  * Solution: changed motor from 7032 to a larger 9235
+* Belt is too loss/shakey during operation
+  * Solution: added 2 idlers, 1 for each motors
+* Belt sometimes scratches the carbon fiber plate
+  * Solution: changed to narrower belts (12mm -> 10mm width) and also a narrower gear to keep the belt in posistion (Idlers helped with this as well)
+* Not enough friction between the 2 wheels and the tennis ball
+  * Solution: changed to larger wheels (83mm -> 90mm diameter) to have a larger contact area with the ball, and compress the ball more during shots
+* Encoder producing noisy signal
+  * Solution: used shielded cables instead to protect the signal from motors' EMI
+
+
+## 3D Modelling
 
 TennisBot is designed using Shapr3D. All the source design files can be found under [/models/designs](../models/designs).
 
