@@ -1,6 +1,6 @@
 # Robot Construction
 
-![TennisBot v1 Front](../images/front_view.jpg)
+![TennisBot v1 Front](images/front_view.jpg)
 
 Since the conception of the TennisBot v1 in 3D, we have been physically building the robot.
 
@@ -22,7 +22,7 @@ Since the conception of the TennisBot v1 in 3D, we have been physically building
 
 ## Hardware Requirements
 
-All material needed to build TennisBot v1 is included in the [hardware](hardware/BOM.xlsx) folder.
+All material needed to build TennisBot v1 is included in the [hardware](../hardware/BOM.xlsx) folder.
 
 Most the components in the list are off-the-shelf items that can be easily acquired. The only custom parts are the 3D printed components, 4040 metal beams, and the carbon fiber plates.
 

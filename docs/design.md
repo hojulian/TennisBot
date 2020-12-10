@@ -23,8 +23,8 @@ TennisBot is designed using Shapr3D. All the source design files can be found un
 
 Here are some images of TennisBot v1 in 3D and AR.
 
-![3D shooting position](../images/3D_shooting_position.png)
+![3D shooting position](images/3D_shooting_position.png)
 
-![3D cross section](../images/3D_cross_section_view.png)
+![3D cross section](images/3D_cross_section_view.png)
 
-![AR side view](../images/AR_side_view.jpg)
+![AR side view](images/AR_side_view.jpg)

@@ -4,7 +4,7 @@
 
 **COSI 119A Fall 2020**
 
-![TennisBot Draft](images/tennisBot_draft.png)
+![TennisBot Draft](docs/images/tennisBot_draft.png)
 
 TennisBot is a tennis playing robot capable of playing a full tennis match.
 
