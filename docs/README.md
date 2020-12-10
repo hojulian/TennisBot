@@ -2,11 +2,9 @@
 
 **Julian Ho, Cass Wang**
 
-![TennisBot Draft](images/tennisBot_draft.png)
+![TennisBot AR](docs/images/AR_overview.gif)
 
 TennisBot is a tennis playing robot capable of playing a full tennis match.
-
-*^Early draft of the TennisBot*
 
 ## Table of Contents
 
