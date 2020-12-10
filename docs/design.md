@@ -1,6 +1,8 @@
 # Design
 
-## Overall
+![TennisBot AR](images/AR_overview.gif)
+
+## Overview
 
 When designing the TennisBot v1, we gave ourselves a couple hard requirements,
 
