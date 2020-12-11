@@ -1,11 +1,21 @@
 #include <Arduino.h>
 #include "DShot.h"
+#include "AS5048A.h"
 
 #define MOTOR_0_PIN 0
 #define MOTOR_1_PIN 2
 hw_timer_t *motor_timer = NULL;
 dshot_t motor_0;
 dshot_t motor_1;
+
+#define ENCODER_MISO 12
+#define ENCODER_MOSI 13
+#define ENCODER_CLK 14
+#define ENCODER_0_PIN 25
+#define ENCODER_1_PIN 26
+SPIClass encoder_spi(HSPI);
+AS5048A encoder_0(&encoder_spi, ENCODER_0_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
+AS5048A encoder_1(&encoder_spi, ENCODER_1_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
 
 void IRAM_ATTR onTimer()
 {
@@ -17,6 +27,10 @@ void setup()
 {
 	Serial.begin(115200);
 	Serial.println("init starting");
+
+	// Encoders init
+	encoder_0.begin();
+	encoder_1.begin();
 
 	// Motors init
 	dshotCreateMotor(MOTOR_0_PIN, &motor_0);
