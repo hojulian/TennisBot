@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "DShot.h"
 #include "AS5048A.h"
+#include "SCSCL.h"
 
 #define MOTOR_0_PIN 0
 #define MOTOR_1_PIN 2
@@ -17,6 +18,11 @@ SPIClass encoder_spi(HSPI);
 AS5048A encoder_0(&encoder_spi, ENCODER_0_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
 AS5048A encoder_1(&encoder_spi, ENCODER_1_PIN, ENCODER_MISO, ENCODER_MOSI, ENCODER_CLK);
 
+#define SERVO_TX_PIN 15
+#define SERVO_RX_PIN 16
+HardwareSerial servo_serial(2);
+SCSCL servo;
+
 void IRAM_ATTR onTimer()
 {
 	dshotOutput(motor_0.throttle, motor_0.dshot_packet, motor_0.rmt_send);
@@ -27,6 +33,10 @@ void setup()
 {
 	Serial.begin(115200);
 	Serial.println("init starting");
+
+	// Servos init
+	servo_serial.begin(1000000, SERIAL_8N1, SERVO_RX_PIN, SERVO_TX_PIN);
+	servo.pSerial = &servo_serial;
 
 	// Encoders init
 	encoder_0.begin();
