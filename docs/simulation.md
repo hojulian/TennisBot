@@ -33,3 +33,17 @@ roslaunch tennisbot_support display.launch
 ```bash
 roslaunch tennisbot_support gazebo.launch
 ```
+
+## Tennis Court
+
+In order to test out our robot design, we first created a tennis court in Blender, then exported it to URDF for use in gazebo.
+
+![tennis court blender](images/tennis_court_blender.png)
+
+*^The red object is our robot*
+
+### Gazebo world
+
+```bash
+/models/gazebo/tennis court/Tennis_Court.world
+```
