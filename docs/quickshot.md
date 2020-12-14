@@ -4,6 +4,8 @@ We have created a Python library (QuickShot) for calculating the exact parameter
 
 All the calculations/equations here are modified based on this [paper](http://www.actawm.pb.edu.pl/volume/vol5no4/WOJCICKI_KULESZA_PUCILOWSKI_EN_2010_085.pdf).
 
+Our detailed explanations of the implementation of the paper [here](shooting_algorithm.pdf).
+
 ## Usage
 
 ```python
