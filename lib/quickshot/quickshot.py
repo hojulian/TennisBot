@@ -58,7 +58,7 @@ class Shooter(object):
             ) / self.roller_circum
             roller2_rpm = (2 * launch_speed / self.roller_circum) - roller1_rpm
         else:
-            ball_rpm = top_spin / self.roller_dist * math.pi
+            ball_rpm = back_spin / self.roller_dist * math.pi
             roller2_rpm = (
                 launch_speed - ball_rpm * self.roller_dist
             ) / self.roller_circum
